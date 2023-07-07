@@ -79,6 +79,7 @@ def preprocess(
     sources,
     tokenizer: transformers.PreTrainedTokenizer,
 ) -> Dict:
+    print('preprocess')
     conv = get_conversation_template("vicuna")
     roles = {"human": conv.roles[0], "gpt": conv.roles[1]}
 
@@ -216,6 +217,7 @@ def make_supervised_data_module(
     dataset_cls = (
         LazySupervisedDataset if data_args.lazy_preprocess else SupervisedDataset
     )
+    print('load 2')
     rank0_print("Loading data...")
     raw_data = json.load(open(data_args.data_path, "r"))
 
@@ -228,7 +230,7 @@ def make_supervised_data_module(
     train_raw_data = [raw_data[i] for i in train_indices]
     eval_raw_data = [raw_data[i] for i in eval_indices]
     rank0_print(f"#train {len(train_raw_data)}, #eval {len(eval_raw_data)}")
-
+    print('load 3')
     train_dataset = dataset_cls(train_raw_data, tokenizer=tokenizer)    
     eval_dataset = dataset_cls(eval_raw_data, tokenizer=tokenizer)
     return dict(train_dataset=train_dataset, eval_dataset=eval_dataset)
@@ -255,7 +257,7 @@ def train():
         use_fast=False,
     )
     tokenizer.pad_token = tokenizer.unk_token
-
+    print('load dataset')
     data_module = make_supervised_data_module(tokenizer=tokenizer, data_args=data_args)
     # trainer = Trainer(
     #     model=model, tokenizer=tokenizer, args=training_args, **data_module
