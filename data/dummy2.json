@@ -17,7 +17,15 @@
       {
         "from": "gpt",
         "value": "I can chat with you."
-      }      
+      },
+      {
+        "from": "human",
+        "value": "What can you do?2"
+      },
+      {
+        "from": "gpt",
+        "value": "I can chat with you.2"
+      }
     ]
   },
   {
