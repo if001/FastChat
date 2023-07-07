@@ -239,7 +239,7 @@ def make_supervised_data_module(
     # print('dataset_cls', dataset_cls, type(dataset_cls))
     train_dataset = dataset_cls(train_raw_data, tokenizer=tokenizer)
     
-    for i in range(0, 20):
+    for i in range(0, 2):
         train_dataset.__getitem__(i)
 
     eval_dataset = dataset_cls(eval_raw_data, tokenizer=tokenizer)
