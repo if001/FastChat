@@ -20,11 +20,11 @@
       },
       {
         "from": "human",
-        "value": "What can you do?2"
+        "value": "human dummy 3"
       },
       {
         "from": "gpt",
-        "value": "I can chat with you.2"
+        "value": "gpt dummy3"
       }
     ]
   },
