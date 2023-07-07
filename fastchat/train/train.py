@@ -198,7 +198,7 @@ class LazySupervisedDataset(Dataset):
     def __getitem__(self, i) -> Dict[str, torch.Tensor]:
         if i in self.cached_data_dict:
             return self.cached_data_dict[i]
-
+        
         ret = preprocess([self.raw_data[i]["conversations"]], self.tokenizer)
         ret = dict(
             input_ids=ret["input_ids"][0],
@@ -231,7 +231,11 @@ def make_supervised_data_module(
     eval_raw_data = [raw_data[i] for i in eval_indices]
     rank0_print(f"#train {len(train_raw_data)}, #eval {len(eval_raw_data)}")
     print('load 3')
-    train_dataset = dataset_cls(train_raw_data, tokenizer=tokenizer)    
+    print('dataset_cls', dataset_cls, type(dataset_cls))
+    train_dataset = dataset_cls(train_raw_data, tokenizer=tokenizer)
+    print('get 0: ', train_dataset.__getitem__(0))
+    print('get 1: ', train_dataset.__getitem__(1))
+
     eval_dataset = dataset_cls(eval_raw_data, tokenizer=tokenizer)
     return dict(train_dataset=train_dataset, eval_dataset=eval_dataset)
 
