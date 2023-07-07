@@ -96,7 +96,9 @@ def preprocess(
             assert role == conv.roles[j % 2], f"{i}"
             conv.append_message(role, sentence["value"])
         conversations.append(conv.get_prompt())
-    print('conve: ', conversations)
+    for v in conversations:
+        print('v: ', v)
+        
     # Tokenize conversations
     input_ids = tokenizer(
         conversations,
@@ -233,8 +235,9 @@ def make_supervised_data_module(
     print('load 3')
     print('dataset_cls', dataset_cls, type(dataset_cls))
     train_dataset = dataset_cls(train_raw_data, tokenizer=tokenizer)
-    print('get 0: ', train_dataset.__getitem__(0))
-    print('get 1: ', train_dataset.__getitem__(1))
+    
+    for i in range(100, 120):
+        train_dataset.__getitem__(i)
 
     eval_dataset = dataset_cls(eval_raw_data, tokenizer=tokenizer)
     return dict(train_dataset=train_dataset, eval_dataset=eval_dataset)
